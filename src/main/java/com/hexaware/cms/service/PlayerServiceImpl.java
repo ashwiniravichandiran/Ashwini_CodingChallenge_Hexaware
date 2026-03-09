@@ -1,7 +1,6 @@
 package com.hexaware.cms.service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,16 +71,13 @@ public class PlayerServiceImpl implements IPlayerService{
 	@Override
 	public ResponseDTO updatePlayer(int id, RequestDTO dto) {
 		// TODO Auto-generated method stub
-		Optional<Player> existing = repo.findById(id);
-		if(existing.isPresent()) {
-			Player player = existing.get();
+		Player player = repo.findById(id).orElseThrow(() -> new PlayerNotFoundException("Player not found"));;
+		
 			player = changeToEntity(dto);
 			
 			Player saved = repo.save(player);
 			return changeToDTO(saved);
 			
-		}
-		return null;
 	}
 
 	@Override
