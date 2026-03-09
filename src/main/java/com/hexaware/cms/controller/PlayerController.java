@@ -25,6 +25,7 @@ public class PlayerController {
 
     @Autowired
     PlayerServiceImpl service;
+    
 
     @GetMapping
     public List<ResponseDTO> getPlayers(){
