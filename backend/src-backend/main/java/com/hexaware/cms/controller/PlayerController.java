@@ -4,6 +4,7 @@ package com.hexaware.cms.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,8 +18,10 @@ import com.hexaware.cms.dto.RequestDTO;
 import com.hexaware.cms.dto.ResponseDTO;
 import com.hexaware.cms.service.PlayerServiceImpl;
 
+import jakarta.validation.Valid;
 
 
+@CrossOrigin(origins = "*") 
 @RestController
 @RequestMapping("/api/players")
 public class PlayerController {
@@ -32,8 +35,8 @@ public class PlayerController {
         return service.getAllPlayers();
     }
 
-    @PostMapping
-    public ResponseDTO addPlayer(@RequestBody RequestDTO player){
+    @PostMapping("")
+    public ResponseDTO addPlayer(@Valid @RequestBody RequestDTO player){
         return service.addPlayer(player);
     }
 
@@ -43,7 +46,7 @@ public class PlayerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseDTO updatePlayer(@PathVariable int id, @RequestBody RequestDTO player){
+    public ResponseDTO updatePlayer(@PathVariable int id,@Valid @RequestBody RequestDTO player){
         return service.updatePlayer(id, player);
     }
 

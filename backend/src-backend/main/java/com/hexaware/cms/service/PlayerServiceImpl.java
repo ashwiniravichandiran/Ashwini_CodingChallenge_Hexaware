@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.hexaware.cms.dto.RequestDTO;
 import com.hexaware.cms.dto.ResponseDTO;
 import com.hexaware.cms.entity.Player;
+import com.hexaware.cms.exception.DuplicatePlayerException;
 import com.hexaware.cms.exception.PlayerNotFoundException;
 import com.hexaware.cms.repo.PlayerRepo;
 
@@ -63,7 +64,12 @@ public class PlayerServiceImpl implements IPlayerService{
 	@Override
 	public ResponseDTO addPlayer(RequestDTO dto) {
 		// TODO Auto-generated method stub
+		
 		Player player = changeToEntity(dto);
+		if(repo.existsById(dto.getPlayerId())) {
+		    throw new DuplicatePlayerException("Player ID already exists, Check again!");
+		}
+
 		Player saved = repo.save(player);
 		return changeToDTO(saved);
 	}
@@ -80,6 +86,7 @@ public class PlayerServiceImpl implements IPlayerService{
 			
 	}
 
+	
 	@Override
 	public void deletePlayer(int id) {
 		// TODO Auto-generated method stub

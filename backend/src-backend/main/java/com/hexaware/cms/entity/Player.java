@@ -1,5 +1,6 @@
 package com.hexaware.cms.entity;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -14,6 +15,7 @@ import lombok.ToString;
 @ToString
 public class Player {
 	@Id
+	@Column(unique = true)
 	private int playerId;
     private String playerName;
     @Column(unique = true)
